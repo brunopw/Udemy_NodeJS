@@ -111,8 +111,7 @@
 		<script>
 			var socket = io('http://localhost');
 
-			$('#enviar_mensagem').click( function() {
-
+			function enviaMensagem() {
 				socket.emit(
 					'msgParaServidor',
 					{ 
@@ -124,25 +123,16 @@
 
 				$('#mensagem').val('');
 				$('#apelido_atualizado_nos_clientes').val(1);
-			});
+			}
+
+			$('#enviar_mensagem').click( enviaMensagem());
 
 			$(document).keydown( function(event) {
 				if (event.which === 13) {
-					socket.emit(
-						'msgParaServidor',
-						{ 
-							apelido : $('#apelido').val(),
-							mensagem : $('#mensagem').val(), 
-							apelido_atualizado_nos_clientes : $('#apelido_atualizado_nos_clientes').val()
-						}
-					);
-
-					$('#mensagem').val('');
-					$('#apelido_atualizado_nos_clientes').val(1);
-					}
+					enviaMensagem();
+				}
 			}); 
 
-			
 			/* dialogo*/
 			socket.on('msgParaCliente', function(data) {
 
